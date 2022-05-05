@@ -54,8 +54,8 @@ class ToDoTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = .black
-        header.textLabel?.font = UIFont.systemFont(ofSize: 12)
+        header.textLabel?.textColor = .label
+        header.textLabel?.font = UIFont.systemFont(ofSize: 12, weight: .bold)
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -126,7 +126,43 @@ class ToDoTableViewController: UITableViewController {
     }
     
     @IBAction func addToDoButton(_ sender: UIBarButtonItem) {
-//        MARK: - TODO
+
+        let alertController = UIAlertController(title: "Add ToDo/Branch", message: nil, preferredStyle: .alert)
+        alertController.addTextField { uiTextField in
+            uiTextField.placeholder = "To-Do Name"
+        }
+        alertController.addTextField { uiTextField in
+            uiTextField.placeholder = "Branch Name"
+        }
+        
+        let alertAction = UIAlertAction(title: "Add", style: .default) { uIAlertAction in
+            if let textField = alertController.textFields {
+                if let todoName = textField[0].text, let branchName = textField[1].text {
+                    self.addCategory(withName: branchName)
+                    self.addTodo(to: branchName, withTitle: todoName)
+                    self.saveData()
+                }
+            }
+        }
+        alertController.addAction(alertAction)
+        present(alertController, animated: true)
+    }
+    
+    
+    @IBAction func deleteCategoryButton(_ sender: UIBarButtonItem) {
+        let alertController = UIAlertController(title: "Delete Category", message: nil, preferredStyle: .alert)
+        alertController.addTextField { uiTextField in
+            uiTextField.placeholder = "Branch Name"
+        }
+        let alertAction = UIAlertAction(title: "Delete", style: .destructive) { uiAlertAction in
+            if let textField = alertController.textFields {
+                if let branchName = textField[0].text {
+                    self.deleteCategory(withName: branchName)
+                }
+            }
+        }
+        alertController.addAction(alertAction)
+        present(alertController, animated: true)
     }
     
     func addTodo(to branchName: String, withTitle itemTitle: String) {
@@ -146,7 +182,7 @@ class ToDoTableViewController: UITableViewController {
     func addCategory(withName branchName: String) {
         if checkBranchExists(withName: branchName) == nil {
             let newBranch = Branch(context: context)
-            newBranch.name = branchName
+            newBranch.name = branchName.uppercased()
             branches.append(newBranch)
             saveData()
         }
@@ -171,6 +207,21 @@ class ToDoTableViewController: UITableViewController {
             }
         }
         return itemsOfBranch
+    }
+    
+    func deleteCategory(withName branchName: String) {
+        if let targetBranch = checkBranchExists(withName: branchName) {
+            items = items.filter{ item in
+                if item.branch?.name == branchName {
+                    context.delete(item)
+                    return false
+                }
+                return true
+            }
+            branches = branches.filter { branch in branch != targetBranch }
+            context.delete(targetBranch)
+            saveData()
+        }
     }
     
     func checkBranchExists(withName name: String) -> Branch? {
