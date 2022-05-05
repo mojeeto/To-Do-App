@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E2CF03E2823A10E00B52B14 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2CF03D2823A10E00B52B14 /* AboutViewController.swift */; };
 		0ECEF0862822E3C20075ED5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECEF0852822E3C20075ED5E /* AppDelegate.swift */; };
 		0ECEF0882822E3C20075ED5E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECEF0872822E3C20075ED5E /* SceneDelegate.swift */; };
 		0ECEF08A2822E3C20075ED5E /* ToDoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECEF0892822E3C20075ED5E /* ToDoTableViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E2CF03D2823A10E00B52B14 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		0ECEF0822822E3C20075ED5E /* To-Do App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To-Do App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ECEF0852822E3C20075ED5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0ECEF0872822E3C20075ED5E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				0ECEF0892822E3C20075ED5E /* ToDoTableViewController.swift */,
+				0E2CF03D2823A10E00B52B14 /* AboutViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 				0ECEF08A2822E3C20075ED5E /* ToDoTableViewController.swift in Sources */,
 				0ECEF0862822E3C20075ED5E /* AppDelegate.swift in Sources */,
 				0ECEF0882822E3C20075ED5E /* SceneDelegate.swift in Sources */,
+				0E2CF03E2823A10E00B52B14 /* AboutViewController.swift in Sources */,
 				0ECEF0902822E3C20075ED5E /* To_Do_App.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
