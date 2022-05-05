@@ -138,13 +138,17 @@ class ToDoTableViewController: UITableViewController {
         let alertAction = UIAlertAction(title: "Add", style: .default) { uIAlertAction in
             if let textField = alertController.textFields {
                 if let todoName = textField[0].text, let branchName = textField[1].text {
-                    self.addCategory(withName: branchName.uppercased())
-                    self.addTodo(to: branchName.uppercased(), withTitle: todoName)
-                    self.saveData()
+                    if todoName != "" && branchName != "" {
+                        self.addCategory(withName: branchName.uppercased())
+                        self.addTodo(to: branchName.uppercased(), withTitle: todoName)
+                        self.saveData()
+                    }
                 }
             }
         }
+        let alertCancel = UIAlertAction(title: "Cancel", style: .cancel)
         alertController.addAction(alertAction)
+        alertController.addAction(alertCancel)
         present(alertController, animated: true)
     }
     
@@ -157,11 +161,17 @@ class ToDoTableViewController: UITableViewController {
         let alertAction = UIAlertAction(title: "Delete", style: .destructive) { uiAlertAction in
             if let textField = alertController.textFields {
                 if let branchName = textField[0].text {
-                    self.deleteCategory(withName: branchName.uppercased())
+                    if branchName != "" {
+                        self.deleteCategory(withName: branchName.uppercased())
+                        alertController.resignFirstResponder()
+                    }
                 }
             }
         }
+        let alertCancel = UIAlertAction(title: "Cancel", style: .cancel)
         alertController.addAction(alertAction)
+        alertController.addAction(alertCancel)
+        alertController.becomeFirstResponder()
         present(alertController, animated: true)
     }
     
@@ -246,7 +256,13 @@ extension ToDoTableViewController: UISearchBarDelegate {
         var predicate: NSPredicate?
         if searchText != "" {
             predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchText)
+        } else {
+            searchBar.resignFirstResponder()
         }
         loadData(predicate ?? NSPredicate(value: true))
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
