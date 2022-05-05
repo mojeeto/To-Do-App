@@ -103,7 +103,7 @@ class ToDoTableViewController: UITableViewController {
         } catch { print("Error while saveing data, \(error)") }
     }
     
-    func loadData(predicate: NSPredicate = NSPredicate(value: true)) {
+    func loadData(_ predicate: NSPredicate = NSPredicate(value: true)) {
         let requestBranch: NSFetchRequest<Branch> = Branch.fetchRequest()
         let requestItem: NSFetchRequest<Item> = Item.fetchRequest()
         requestItem.predicate = predicate
@@ -138,8 +138,8 @@ class ToDoTableViewController: UITableViewController {
         let alertAction = UIAlertAction(title: "Add", style: .default) { uIAlertAction in
             if let textField = alertController.textFields {
                 if let todoName = textField[0].text, let branchName = textField[1].text {
-                    self.addCategory(withName: branchName)
-                    self.addTodo(to: branchName, withTitle: todoName)
+                    self.addCategory(withName: branchName.uppercased())
+                    self.addTodo(to: branchName.uppercased(), withTitle: todoName)
                     self.saveData()
                 }
             }
@@ -157,7 +157,7 @@ class ToDoTableViewController: UITableViewController {
         let alertAction = UIAlertAction(title: "Delete", style: .destructive) { uiAlertAction in
             if let textField = alertController.textFields {
                 if let branchName = textField[0].text {
-                    self.deleteCategory(withName: branchName)
+                    self.deleteCategory(withName: branchName.uppercased())
                 }
             }
         }
@@ -169,22 +169,26 @@ class ToDoTableViewController: UITableViewController {
 //        for add todo to specified category
 //        first of all we have to check is category exist or not
 //        then if exist add todo to specified category
-        if let branch = checkBranchExists(withName: branchName) {
-            let newItem = Item(context: context)
-            newItem.title = itemTitle
-            newItem.isDone = false
-            newItem.branch = branch
-            items.append(newItem)
-            saveData()
+        if itemTitle != "" && branchName != "" {
+            if let branch = checkBranchExists(withName: branchName) {
+                let newItem = Item(context: context)
+                newItem.title = itemTitle
+                newItem.isDone = false
+                newItem.branch = branch
+                items.append(newItem)
+                saveData()
+            }
         }
         
     }
     func addCategory(withName branchName: String) {
-        if checkBranchExists(withName: branchName) == nil {
-            let newBranch = Branch(context: context)
-            newBranch.name = branchName.uppercased()
-            branches.append(newBranch)
-            saveData()
+        if branchName != "" {
+            if checkBranchExists(withName: branchName) == nil {
+                let newBranch = Branch(context: context)
+                newBranch.name = branchName
+                branches.append(newBranch)
+                saveData()
+            }
         }
     }
     
@@ -235,3 +239,14 @@ class ToDoTableViewController: UITableViewController {
     
 }
 
+
+
+extension ToDoTableViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        var predicate: NSPredicate?
+        if searchText != "" {
+            predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchText)
+        }
+        loadData(predicate ?? NSPredicate(value: true))
+    }
+}
