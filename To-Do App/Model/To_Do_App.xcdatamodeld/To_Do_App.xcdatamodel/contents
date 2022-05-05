@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Categories" representedClassName=".Categories" syncable="YES" codeGenerationType="class">
+    <entity name="Branch" representedClassName=".Branch" syncable="YES" codeGenerationType="class">
         <attribute name="name" attributeType="String"/>
-        <relationship name="todos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Items" inverseName="category" inverseEntity="Items"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="branch" inverseEntity="Item"/>
     </entity>
-    <entity name="Items" representedClassName=".Items" syncable="YES" codeGenerationType="class">
+    <entity name="Item" representedClassName=".Item" syncable="YES" codeGenerationType="class">
         <attribute name="isDone" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="title" attributeType="String"/>
-        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Categories" inverseName="todos" inverseEntity="Categories"/>
+        <relationship name="branch" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Branch" inverseName="items" inverseEntity="Branch"/>
     </entity>
     <elements>
-        <element name="Items" positionX="-1115.56640625" positionY="1504.90234375" width="128" height="88"/>
-        <element name="Categories" positionX="-852.9609375" positionY="1579.625" width="128" height="73"/>
+        <element name="Branch" positionX="-852.9609375" positionY="1579.625" width="128" height="73"/>
+        <element name="Item" positionX="-1115.56640625" positionY="1504.90234375" width="128" height="88"/>
     </elements>
 </model>
