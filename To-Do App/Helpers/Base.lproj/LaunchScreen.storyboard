@@ -46,10 +46,17 @@
                                     <constraint firstItem="d9d-fe-7w3" firstAttribute="centerX" secondItem="qqZ-WQ-hwW" secondAttribute="centerX" id="pPC-EM-AZ4"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V 0.1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aST-30-gga">
+                                <rect key="frame" x="195.66666666666666" y="870" width="37" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="aST-30-gga" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="7dt-mr-CBR"/>
+                            <constraint firstAttribute="bottom" secondItem="aST-30-gga" secondAttribute="bottom" constant="35" id="NT3-ON-mCz"/>
                             <constraint firstItem="qqZ-WQ-hwW" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="aOU-MO-xLf"/>
                             <constraint firstItem="qqZ-WQ-hwW" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="veC-5i-XrN"/>
                         </constraints>
